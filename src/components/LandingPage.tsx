@@ -16,6 +16,7 @@ import {
   Menu,
   X
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -260,20 +261,160 @@ const Footer = () => {
   );
 };
 
+const SolutionsSection = () => {
+  const solutions = [
+    {
+      id: "ai",
+      title: "AI Solutions",
+      subtitle: "AIOS: Proactive Intelligence",
+      description: "Codes-Matrix delivers high-performance AI frameworks that anticipate needs rather than just responding to them.",
+      points: [
+        "Complete Data Sovereignty: Total control with no third-party dependencies.",
+        "Proactive Intelligence: Surfaces what matters before you even ask.",
+        "Powerful Yet Simple: Enterprise capability without technical barriers.",
+        "Workflow Enhancement: Amplifies judgment instead of substituting it."
+      ],
+      icon: <Brain className="w-12 h-12 text-blue-400" />,
+      color: "from-blue-600/20 to-transparent",
+      borderColor: "border-blue-500/20"
+    },
+    {
+      id: "gis",
+      title: "Geo Spatial & GIS",
+      subtitle: "Location Intelligence",
+      description: "Unlocking the power of location data through advanced mapping and real-time spatial analysis.",
+      points: [
+        "Advanced Spatial Mapping: High-fidelity visualization of complex data.",
+        "Remote Sensing: Interpretation of satellite and aerial imagery.",
+        "Custom GIS Software: Tailored tools for your specific spatial needs.",
+        "Real-time Tracking: Precision monitoring of assets and fleets."
+      ],
+      icon: <Map className="w-12 h-12 text-emerald-400" />,
+      color: "from-emerald-600/20 to-transparent",
+      borderColor: "border-emerald-500/20"
+    },
+    {
+      id: "training",
+      title: "Trainings",
+      subtitle: "Knowledge Transfer",
+      description: "Empowering your workforce with the skills needed to lead in the age of AI and digital transformation.",
+      points: [
+        "Professional Certification: Industry-recognized GIS & AI credentials.",
+        "Corporate Workshops: Strategic digital transformation training.",
+        "Technical Bootcamps: Intensive hands-on coding and analysis.",
+        "Executive Seminars: High-level insights on emerging tech trends."
+      ],
+      icon: <GraduationCap className="w-12 h-12 text-amber-400" />,
+      color: "from-amber-600/20 to-transparent",
+      borderColor: "border-amber-500/20"
+    },
+    {
+      id: "iso",
+      title: "ISO Compliance",
+      subtitle: "Quality Assurance",
+      description: "Rigorous compliance frameworks and auditing services to ensure your operations meet global standards.",
+      points: [
+        "ISO 9001:2015: Comprehensive Quality Management implementation.",
+        "ISO 27001: Robust Information Security Management systems.",
+        "Compliance Auditing: Thorough gap analysis and risk assessment.",
+        "Process Optimization: Streamlined documentation and workflows."
+      ],
+      icon: <ShieldCheck className="w-12 h-12 text-purple-400" />,
+      color: "from-purple-600/20 to-transparent",
+      borderColor: "border-purple-500/20"
+    }
+  ];
+
+  return (
+    <div className="space-y-32 py-24">
+      {solutions.map((s, i) => (
+        <section key={s.id} id={s.id} className="max-w-7xl mx-auto px-6">
+          <div className={cn(
+            "grid grid-cols-1 lg:grid-cols-2 gap-16 items-center",
+            i % 2 === 1 && "lg:flex-row-reverse"
+          )}>
+            <motion.div 
+              initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className={cn("space-y-8", i % 2 === 1 && "lg:order-2")}
+            >
+              <div className={cn("w-20 h-20 rounded-3xl bg-gradient-to-br flex items-center justify-center shadow-2xl", s.color)}>
+                {s.icon}
+              </div>
+              <div className="space-y-4">
+                <Badge variant="outline" className={cn("border-none bg-white/5 text-white/60", s.borderColor)}>
+                  {s.subtitle}
+                </Badge>
+                <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">
+                  {s.title}
+                </h2>
+                <p className="text-white/40 text-xl font-medium leading-relaxed">
+                  {s.description}
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {s.points.map((point, idx) => (
+                  <div key={idx} className="flex items-start gap-3 group">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 mt-1 shrink-0" />
+                    <span className="text-white/70 font-medium leading-snug">{point}</span>
+                  </div>
+                ))}
+              </div>
+
+              <Button variant="outline" className="border-white/10 text-white hover:bg-white hover:text-black rounded-full px-8 h-12">
+                Learn More About {s.title}
+              </Button>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className={cn(
+                "relative aspect-square rounded-[40px] overflow-hidden border border-white/5 bg-zinc-900/50 backdrop-blur-3xl group",
+                i % 2 === 1 && "lg:order-1"
+              )}
+            >
+              <div className={cn("absolute inset-0 bg-gradient-to-br opacity-20 group-hover:opacity-30 transition-opacity", s.color)} />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative">
+                  <div className={cn("absolute inset-0 blur-3xl opacity-20", s.color)} />
+                  {React.cloneElement(s.icon as React.ReactElement, { className: "w-48 h-48 relative z-10 opacity-40" })}
+                </div>
+              </div>
+              {/* Decorative elements */}
+              <div className="absolute top-8 left-8 w-2 h-2 rounded-full bg-white/20" />
+              <div className="absolute top-8 right-8 w-2 h-2 rounded-full bg-white/20" />
+              <div className="absolute bottom-8 left-8 w-2 h-2 rounded-full bg-white/20" />
+              <div className="absolute bottom-8 right-8 w-2 h-2 rounded-full bg-white/20" />
+            </motion.div>
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+};
+
 export default function LandingPage() {
   return (
     <div className="bg-[#050505] min-h-screen selection:bg-blue-500 selection:text-white">
       <Navbar />
       <Hero />
       
-      {/* Interactive Leaflet Section */}
-      <section id="services" className="py-20">
+      {/* Interactive Leaflet Section - Quick Overview */}
+      <section id="overview" className="py-20 bg-white/[0.01]">
         <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
-          <h2 className="text-3xl md:text-5xl font-black text-white mb-4">INTERACTIVE SOLUTIONS</h2>
-          <p className="text-white/40 text-lg font-medium">Click to explore our core service pillars</p>
+          <Badge variant="outline" className="border-white/10 text-white/40 mb-4">Interactive Experience</Badge>
+          <h2 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tighter">Quick Overview</h2>
+          <p className="text-white/40 text-lg font-medium">Click to explore our core service pillars at a glance</p>
         </div>
         <Leaflet />
       </section>
+
+      {/* Detailed Solutions Sections */}
+      <SolutionsSection />
 
       <FeatureSection />
       <ContactSection />
