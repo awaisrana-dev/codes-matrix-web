@@ -275,6 +275,7 @@ const SolutionsSection = () => {
         "Workflow Enhancement: Amplifies judgment instead of substituting it."
       ],
       icon: <Brain className="w-12 h-12 text-blue-400" />,
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000",
       color: "from-blue-600/20 to-transparent",
       borderColor: "border-blue-500/20"
     },
@@ -290,6 +291,7 @@ const SolutionsSection = () => {
         "Real-time Tracking: Precision monitoring of assets and fleets."
       ],
       icon: <Map className="w-12 h-12 text-emerald-400" />,
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000",
       color: "from-emerald-600/20 to-transparent",
       borderColor: "border-emerald-500/20"
     },
@@ -305,6 +307,7 @@ const SolutionsSection = () => {
         "Executive Seminars: High-level insights on emerging tech trends."
       ],
       icon: <GraduationCap className="w-12 h-12 text-amber-400" />,
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000",
       color: "from-amber-600/20 to-transparent",
       borderColor: "border-amber-500/20"
     },
@@ -377,11 +380,29 @@ const SolutionsSection = () => {
                 i % 2 === 1 && "lg:order-1"
               )}
             >
-              <div className={cn("absolute inset-0 bg-gradient-to-br opacity-20 group-hover:opacity-30 transition-opacity", s.color)} />
+              {s.image ? (
+                <div className="absolute inset-0">
+                  <img 
+                    src={s.image} 
+                    alt={s.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+                </div>
+              ) : (
+                <div className={cn("absolute inset-0 bg-gradient-to-br opacity-20 group-hover:opacity-30 transition-opacity", s.color)} />
+              )}
+              
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative">
                   <div className={cn("absolute inset-0 blur-3xl opacity-20", s.color)} />
-                  {React.cloneElement(s.icon as React.ReactElement, { className: "w-48 h-48 relative z-10 opacity-40" })}
+                  {React.cloneElement(s.icon as React.ReactElement, { 
+                    className: cn(
+                      "w-48 h-48 relative z-10",
+                      s.image ? "opacity-20 group-hover:opacity-40" : "opacity-40"
+                    ) 
+                  })}
                 </div>
               </div>
               {/* Decorative elements */}
