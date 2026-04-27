@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Leaflet from "./Leaflet";
+import Logo from "./Logo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -29,10 +30,7 @@ const Navbar = () => {
     <nav className="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-lg flex items-center justify-center">
-            <div className="w-4 h-4 bg-white rounded-sm rotate-45" />
-          </div>
-          <span className="text-xl font-black text-white tracking-tighter">CODES-MATRIX</span>
+          <Logo className="scale-90 md:scale-100" />
         </div>
 
         {/* Desktop Nav */}
@@ -77,6 +75,27 @@ const Navbar = () => {
 const Hero = () => {
   return (
     <section className="relative pt-32 pb-20 overflow-hidden">
+      {/* Matrix Background Effect */}
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
+        <div className="grid grid-cols-12 h-full w-full">
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ y: -100 }}
+              animate={{ y: [null, 800] }}
+              transition={{
+                duration: 5 + Math.random() * 5,
+                repeat: Infinity,
+                ease: "linear",
+                delay: Math.random() * 10
+              }}
+              className="w-px h-20 bg-gradient-to-b from-transparent via-blue-500/50 to-transparent mx-auto"
+            />
+          ))}
+        </div>
+      </div>
+
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-gradient-to-b from-blue-500/10 via-transparent to-transparent pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -233,10 +252,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
-              <div className="w-3 h-3 bg-black rounded-sm rotate-45" />
-            </div>
-            <span className="text-lg font-black text-white tracking-tighter uppercase">Codes-Matrix</span>
+            <Logo className="scale-75 origin-left" />
           </div>
           
           <div className="flex gap-8 text-white/40 text-sm font-medium">
